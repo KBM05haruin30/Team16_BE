@@ -11,11 +11,14 @@ public record KakaoProperties(
     String authUrl,
     String tokenUrl,
     String userInfoUrl,
-    String sendMessageUrl
+    String sendMessageUrl,
+    String tokenInfoUrl,
+    String eventListUrl,
+    String scope
 ) {
 
     public String generateLoginUrl() {
-        return String.format("%s?response_type=code&client_id=%s&redirect_uri=%s",
-            authUrl, clientId, redirectUrl);
+        return String.format("%s?response_type=code&client_id=%s&redirect_uri=%s&scope=%s",
+            authUrl, clientId, redirectUrl,scope);
     }
 }
