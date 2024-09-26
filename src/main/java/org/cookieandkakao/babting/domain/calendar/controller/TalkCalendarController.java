@@ -33,7 +33,7 @@ public class TalkCalendarController {
         String accessToken = authorizationHeader.replace("Bearer ", "");
         System.out.println("Access Token: " + accessToken);
         try {
-           EventListResponseDTO events = calendarService.getEvents(accessToken, from, to);
+           CalendarResponseBodyDTO events = calendarService.getEvents(accessToken, from, to);
             if (events.events().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body(new CalendarResponseBodyDTO(
