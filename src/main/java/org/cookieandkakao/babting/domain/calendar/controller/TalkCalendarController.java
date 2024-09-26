@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.CalendarResponseBodyDTO;
 import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventBriefDTO;
+import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventListRequestDTO;
 import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventListResponseDTO;
 import org.cookieandkakao.babting.domain.calendar.service.TalkCalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,12 +29,13 @@ public class TalkCalendarController {
     @GetMapping("/events")
     public ResponseEntity<CalendarResponseBodyDTO> getEvents(
         @RequestHeader(value = "Authorization") String authorizationHeader,
-        @RequestParam(value = "from") String from,
-        @RequestParam(value = "to") String to
+        @RequestBody EventListRequestDTO eventListRequestDTO
     ) {
         String accessToken = authorizationHeader.replace("Bearer ", "");
         System.out.println("Access Token: " + accessToken);
         try {
+            String from = eventListRequestDTO.from();
+            String to = eventListRequestDTO.to();
            CalendarResponseBodyDTO events = calendarService.getEvents(accessToken, from, to);
             if (events.events().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT)
