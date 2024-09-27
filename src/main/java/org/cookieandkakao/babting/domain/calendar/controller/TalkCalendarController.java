@@ -1,11 +1,8 @@
 package org.cookieandkakao.babting.domain.calendar.controller;
 
 import java.util.Collections;
-import java.util.List;
-import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.CalendarResponseBodyDTO;
-import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventBriefDTO;
+import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventListDTO;
 import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventListRequestDTO;
-import org.cookieandkakao.babting.domain.calendar.dto.calendarDTO.EventListResponseDTO;
 import org.cookieandkakao.babting.domain.calendar.service.TalkCalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,49 +10,49 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/calendar")
 public class TalkCalendarController {
 
-    private final TalkCalendarService calendarService;
+    private final TalkCalendarService talkCalendarService;
 
-    public TalkCalendarController(TalkCalendarService calendarService) {
-        this.calendarService = calendarService;
+    public TalkCalendarController(TalkCalendarService talkCalendarService) {
+        this.talkCalendarService = talkCalendarService;
     }
 
     @GetMapping("/events")
-    public ResponseEntity<CalendarResponseBodyDTO> getEvents(
+    public ResponseEntity<EventListDTO> getEventList(
         @RequestHeader(value = "Authorization") String authorizationHeader,
         @RequestBody EventListRequestDTO eventListRequestDTO
     ) {
         String accessToken = authorizationHeader.replace("Bearer ", "");
-        System.out.println("Access Token: " + accessToken);
         try {
             String from = eventListRequestDTO.from();
             String to = eventListRequestDTO.to();
-           CalendarResponseBodyDTO events = calendarService.getEvents(accessToken, from, to);
-            if (events.events().isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                    .body(new CalendarResponseBodyDTO(
-                        204,
-                        "조회된 일정이 없습니다.",
-                        events.events(),
-                        false
-                    ));
+
+            EventListDTO eventList = talkCalendarService.getEventList(accessToken, from, to);
+
+            HttpStatus status = HttpStatus.OK;
+            String message = "일정 목록을 조회했습니다.";
+
+            if (eventList.events().isEmpty()) {
+                status = HttpStatus.NO_CONTENT;
+                message = "조회된 일정이 없습니다.";
             }
-            CalendarResponseBodyDTO responseBody = new CalendarResponseBodyDTO(
-                200,
-                "조회 성공",
-                events.events(),
-                events.hasNext()
+
+            EventListDTO responseBody = new EventListDTO(
+                status.value(),
+                message,
+                eventList.events(),
+                eventList.hasNext()
             );
-            return ResponseEntity.ok(responseBody);
+
+            return ResponseEntity.status(status).body(responseBody);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new CalendarResponseBodyDTO(
+                .body(new EventListDTO(
                     500,
                     "일정 조회 중 오류가 발생했습니다.",
                     Collections.emptyList(),
@@ -63,5 +60,4 @@ public class TalkCalendarController {
                 ));
         }
     }
-
 }
