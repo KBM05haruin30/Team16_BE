@@ -34,7 +34,7 @@ public class Event {
     @Column
     private String type;
 
-    @Column(nullable = false)
+    @Column
     private boolean repeatedSchedule;
 
     @Column
@@ -51,5 +51,64 @@ public class Event {
 
     @Column
     private String memo;
+
+    protected Event() {}
+
+    public Event(PersonalCalendar personalCalendar, Time time, String title, String type, boolean repeatedSchedule, String scheduleRepeatCycle, String dtStart, String description, String eventColor, String memo){
+        this.personalCalendar = personalCalendar;
+        this.time = time;
+        this.title = title;
+        this.type = type;
+        this.repeatedSchedule = repeatedSchedule;
+        this.scheduleRepeatCycle = scheduleRepeatCycle;
+        this.dtStart = dtStart;
+        this.description = description;
+        this.eventColor = eventColor;
+        this.memo = memo;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public PersonalCalendar getPersonalCalendar() {
+        return personalCalendar;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean isRepeatedSchedule() {
+        return repeatedSchedule;
+    }
+
+    public String getScheduleRepeatCycle() {
+        return scheduleRepeatCycle;
+    }
+
+    public String getDtStart() {
+        return dtStart;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getEventColor() {
+        return eventColor;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
 
 }
