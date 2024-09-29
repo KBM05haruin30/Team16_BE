@@ -47,6 +47,14 @@ public class Member {
         this.profileImageUrl = profileDto.profileImage();
     }
 
+    public Long getKakaoMemberId() {
+        return kakaoMemberId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
     public void updateKakaoToken(KakaoToken kakaoToken) {
         this.kakaoToken = kakaoToken;
     }

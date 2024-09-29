@@ -39,6 +39,7 @@ public class KakaoLoginController {
             System.out.println("email: " + email);
             System.out.println("userInfoId: " + userId);
             System.out.println("tokenInfoId: " + tokenId);
+
             return "/kakao/success";
         }
         String loginUrl = kakaoLoginService.generateKakaoLoginUrl();
