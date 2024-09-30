@@ -22,7 +22,7 @@ public class Time {
     @Column(nullable = false)
     private LocalDateTime endAt;
 
-    @Column(nullable = false)
+    @Column
     private String timeZone;
 
     @Column(nullable = false)
