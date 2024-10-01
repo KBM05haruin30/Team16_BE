@@ -6,10 +6,7 @@ public record EventCreateRequestDto(
     String title,
     TimeCreateRequestDto time,
     String rrule,
-    String description,
-    LocationCreateRequestDto location,
-    List<Long> reminders,
-    String color
+    String description
 ) {
 
 }
