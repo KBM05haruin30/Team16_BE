@@ -1,7 +1,5 @@
 package org.cookieandkakao.babting.domain.calendar.controller;
 
-import java.util.Collections;
-import java.util.List;
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseBody.SuccessBody;
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseGenerator;
 import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequestDto;
@@ -14,6 +12,7 @@ import org.cookieandkakao.babting.domain.calendar.service.TalkCalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -46,6 +45,9 @@ public class TalkCalendarController {
         EventListGetResponseDto eventList = talkCalendarService.getEventList(accessToken, from, to);
 
         for (EventGetResponseDto event : eventList.events()) {
+            if (event.id() != null) {
+                event = talkCalendarService.getEvent(accessToken, event.id());
+            }
             eventService.saveEvent(event, memberId);  // memberId를 사용해 저장
         }
 
@@ -54,6 +56,23 @@ public class TalkCalendarController {
         }
 
         return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventList);
+    }
+
+    @GetMapping("/events/{event_id}")
+    public ResponseEntity<SuccessBody<EventGetResponseDto>> getEvent(
+        @RequestHeader(value = "Authorization") String authorizationHeader,
+        @PathVariable("event_id") String eventId,
+        @RequestParam Long memberId
+    ) {
+        String accessToken = authorizationHeader.replace("Bearer ", "");
+
+        EventGetResponseDto eventGetResponseDto = talkCalendarService.getEvent(accessToken, eventId);
+
+        if (eventGetResponseDto == null) {
+            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", null);
+        }
+
+        return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventGetResponseDto);
     }
 
     @PostMapping("/create/event")

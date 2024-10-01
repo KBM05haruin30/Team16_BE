@@ -6,7 +6,9 @@ import java.net.URI;
 import java.util.Map;
 import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequestDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventCreateResponseDto;
+import org.cookieandkakao.babting.domain.calendar.dto.response.EventGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventListGetResponseDto;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class TalkCalendarService {
 
     public EventListGetResponseDto getEventList(String accessToken, String from, String to) {
         String url = "https://kapi.kakao.com/v2/api/calendar/events";
-        URI uri = buildUri(url, from, to);
+        URI uri = buildGetListUri(url, from, to);
         try {
             ResponseEntity<EventListGetResponseDto> response = restClient.get()
                 .uri(uri)
@@ -40,8 +42,33 @@ public class TalkCalendarService {
         }
     }
 
-    private URI buildUri(String baseUrl, String from, String to) {
+    public EventGetResponseDto getEvent(String accessToken, String eventId) {
+        String url = "https://kapi.kakao.com/v2/api/calendar/event";
+        URI uri = buildGetEventUri(url, eventId);
+        try {
+            ResponseEntity<Map<String, EventGetResponseDto>> response = restClient.get()
+                .uri(uri)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .retrieve()
+                .toEntity(new ParameterizedTypeReference<Map<String, EventGetResponseDto>>() {});
+
+            // 응답에서 "event" 키로 값을 꺼냄
+            Map<String, EventGetResponseDto> responseBody = response.getBody();
+            if (responseBody != null && responseBody.containsKey("event")) {
+                return responseBody.get("event");
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("API 호출 중 오류 발생: " + e.getMessage(), e);
+        }
+    }
+
+    private URI buildGetListUri(String baseUrl, String from, String to) {
         return URI.create(String.format("%s?from=%s&to=%s&limit=100&time_zone=Asia/Seoul", baseUrl, from, to));
+    }
+
+    private URI buildGetEventUri(String baseUrl, String eventId) {
+        return URI.create(String.format("%s?event_id=%s", baseUrl, eventId));
     }
 
     public EventCreateResponseDto createEvent(String accessToken, EventCreateRequestDto eventCreateRequestDto, Long memberId) {
