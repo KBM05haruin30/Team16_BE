@@ -52,7 +52,7 @@ public class TalkCalendarController {
         }
 
         if (eventList.events().isEmpty()) {
-            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", null);
+            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventList);
         }
 
         return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventList);
@@ -69,7 +69,7 @@ public class TalkCalendarController {
         EventGetResponseDto eventGetResponseDto = talkCalendarService.getEvent(accessToken, eventId);
 
         if (eventGetResponseDto == null) {
-            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", null);
+            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventGetResponseDto);
         }
 
         return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventGetResponseDto);

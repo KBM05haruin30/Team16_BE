@@ -38,7 +38,7 @@ public class TalkCalendarService {
                 .toEntity(EventListGetResponseDto.class);
             return response.getBody();
         } catch (Exception e) {
-            throw new RuntimeException("API 호출 중 오류 발생: " + e.getMessage(), e);
+            throw new RuntimeException("API 호출 중 오류 발생");
         }
     }
 
@@ -59,7 +59,7 @@ public class TalkCalendarService {
             }
             return null;
         } catch (Exception e) {
-            throw new RuntimeException("API 호출 중 오류 발생: " + e.getMessage(), e);
+            throw new RuntimeException("API 호출 중 오류 발생");
         }
     }
 
