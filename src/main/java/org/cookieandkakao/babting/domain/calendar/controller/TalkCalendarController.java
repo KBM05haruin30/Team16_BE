@@ -1,8 +1,11 @@
 package org.cookieandkakao.babting.domain.calendar.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseBody.SuccessBody;
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseGenerator;
 import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequestDto;
+import org.cookieandkakao.babting.domain.calendar.dto.request.EventDetailGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventCreateResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventListGetResponseDto;
@@ -44,14 +47,21 @@ public class TalkCalendarController {
 
         EventListGetResponseDto eventList = talkCalendarService.getEventList(accessToken, from, to);
 
+        List<EventGetResponseDto> updatedEvents = new ArrayList<>();
+
         for (EventGetResponseDto event : eventList.events()) {
             if (event.id() != null) {
-                event = talkCalendarService.getEvent(accessToken, event.id());
+                event = talkCalendarService.getEvent(accessToken, event.id()).event();
+                eventService.saveEvent(event, memberId);  // memberId를 사용해 저장
+                updatedEvents.add(event);
+            } else {
+                updatedEvents.add(event);
             }
-            eventService.saveEvent(event, memberId);  // memberId를 사용해 저장
         }
 
-        if (eventList.events().isEmpty()) {
+        eventList = new EventListGetResponseDto(updatedEvents);
+
+        if (updatedEvents.isEmpty()) {
             return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventList);
         }
 
@@ -59,20 +69,20 @@ public class TalkCalendarController {
     }
 
     @GetMapping("/events/{event_id}")
-    public ResponseEntity<SuccessBody<EventGetResponseDto>> getEvent(
+    public ResponseEntity<SuccessBody<EventDetailGetResponseDto>> getEvent(
         @RequestHeader(value = "Authorization") String authorizationHeader,
         @PathVariable("event_id") String eventId,
         @RequestParam Long memberId
     ) {
         String accessToken = authorizationHeader.replace("Bearer ", "");
 
-        EventGetResponseDto eventGetResponseDto = talkCalendarService.getEvent(accessToken, eventId);
+        EventDetailGetResponseDto eventDetailGetResponseDto = talkCalendarService.getEvent(accessToken, eventId);
 
-        if (eventGetResponseDto == null) {
-            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventGetResponseDto);
+        if (eventDetailGetResponseDto == null) {
+            return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventDetailGetResponseDto);
         }
 
-        return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventGetResponseDto);
+        return ApiResponseGenerator.success(HttpStatus.OK, "일정 목록을 조회했습니다.", eventDetailGetResponseDto);
     }
 
     @PostMapping("/create/event")

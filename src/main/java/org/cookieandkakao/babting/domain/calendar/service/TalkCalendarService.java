@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.Map;
 import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequestDto;
+import org.cookieandkakao.babting.domain.calendar.dto.request.EventDetailGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventCreateResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventListGetResponseDto;
@@ -42,24 +43,19 @@ public class TalkCalendarService {
         }
     }
 
-    public EventGetResponseDto getEvent(String accessToken, String eventId) {
+    public EventDetailGetResponseDto getEvent(String accessToken, String eventId) {
         String url = "https://kapi.kakao.com/v2/api/calendar/event";
         URI uri = buildGetEventUri(url, eventId);
+
         try {
-            ResponseEntity<Map<String, EventGetResponseDto>> response = restClient.get()
+            ResponseEntity<EventDetailGetResponseDto> response = restClient.get()
                 .uri(uri)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                 .retrieve()
-                .toEntity(new ParameterizedTypeReference<Map<String, EventGetResponseDto>>() {});
-
-            // 응답에서 "event" 키로 값을 꺼냄
-            Map<String, EventGetResponseDto> responseBody = response.getBody();
-            if (responseBody != null && responseBody.containsKey("event")) {
-                return responseBody.get("event");
-            }
-            return null;
+                .toEntity(EventDetailGetResponseDto.class); // 변경된 부분
+            return response.getBody();
         } catch (Exception e) {
-            throw new RuntimeException("API 호출 중 오류 발생");
+            throw new RuntimeException("API 호출 중 오류 발생", e);
         }
     }
 
