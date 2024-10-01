@@ -1,4 +1,4 @@
-package org.cookieandkakao.babting.domain.calendar.controller;
+package org.cookieandkakao.babting.common.exception;
 
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseBody;
 import org.cookieandkakao.babting.common.apiresponse.ApiResponseBody.FailureBody;
