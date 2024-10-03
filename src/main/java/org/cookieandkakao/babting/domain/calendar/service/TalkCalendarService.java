@@ -8,6 +8,7 @@ import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequest
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventCreateResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventDetailGetResponseDto;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventListGetResponseDto;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class TalkCalendarService {
         this.eventService = eventService;
     }
 
+    // 일정 목록을 조회할 때 캐시 적용
+    @Cacheable(value = "eventListCache", key = "#from + #to + #accessToken")
     public EventListGetResponseDto getEventList(String accessToken, String from, String to) {
         String url = "https://kapi.kakao.com/v2/api/calendar/events";
         URI uri = buildGetListUri(url, from, to);
