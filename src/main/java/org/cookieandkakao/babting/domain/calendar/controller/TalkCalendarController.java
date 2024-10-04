@@ -43,21 +43,24 @@ public class TalkCalendarController {
     ) {
         String accessToken = authorizationHeader.replace("Bearer ", "");
 
-        EventListGetResponseDto eventList = talkCalendarService.getEventList(accessToken, from, to);
+        /*EventListGetResponseDto eventList = talkCalendarService.getEventList(accessToken, from, to);
 
         List<EventGetResponseDto> updatedEvents = new ArrayList<>();
 
         for (EventGetResponseDto event : eventList.events()) {
             if (event.id() != null) {
                 event = talkCalendarService.getEvent(accessToken, event.id()).event();
-                eventService.saveEvent(event, memberId);  // memberId를 사용해 저장
                 updatedEvents.add(event);
             } else {
                 updatedEvents.add(event);
             }
         }
 
-        eventList = new EventListGetResponseDto(updatedEvents);
+        eventList = new EventListGetResponseDto(updatedEvents);*/
+
+        // updatedEvents를 캐시에서 가져오기
+        List<EventGetResponseDto> updatedEvents = talkCalendarService.getUpdatedEventList(accessToken, from, to, memberId);
+        EventListGetResponseDto eventList = new EventListGetResponseDto(updatedEvents);
 
         if (updatedEvents.isEmpty()) {
             return ApiResponseGenerator.success(HttpStatus.NO_CONTENT, "조회된 일정이 없습니다.", eventList);

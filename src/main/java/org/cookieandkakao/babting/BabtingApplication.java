@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -12,6 +13,7 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 @ConfigurationPropertiesScan
 @PropertySource("classpath:application-kakao-key.properties")
 @SpringBootApplication
+@EnableCaching
 public class BabtingApplication {
 
     public static void main(String[] args) {
