@@ -101,7 +101,7 @@ public class MeetingEventService {
         return new MeetingPersonalEventGetResponse(meetingPersonalEventTimes);
     }
 
-    public List<MeetingEvent> findAllMeetingEvent(Long meetingId, Long memberId) {
+    private List<MeetingEvent> findAllMeetingEvent(Long meetingId, Long memberId) {
         Meeting meeting = meetingService.findMeeting(meetingId);
         Member member = memberService.findMember(memberId);
         MemberMeeting memberMeeting = meetingService.findMemberMeeting(member, meeting);

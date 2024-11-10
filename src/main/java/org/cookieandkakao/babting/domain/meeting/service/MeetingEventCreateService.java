@@ -42,17 +42,8 @@ public class MeetingEventCreateService {
     // 일정 생성 후 캘린더에 일정 추가
     public EventCreateResponse addMeetingEvent(Long memberId,
         MeetingEventCreateRequest meetingEventCreateRequest) {
-        EventCreateRequest eventCreateRequest = convertToEventCreateRequest(
-            meetingEventCreateRequest);
+        EventCreateRequest eventCreateRequest = EventCreateRequest.from(meetingEventCreateRequest);
         return talkCalendarService.createEvent(eventCreateRequest, memberId);
-    }
-
-    private EventCreateRequest convertToEventCreateRequest(
-        MeetingEventCreateRequest meetingEventCreateRequest) {
-        return new EventCreateRequest(
-            meetingEventCreateRequest.title(),
-            meetingEventCreateRequest.time().toTimeCreateRequest(), null,
-            meetingEventCreateRequest.reminders(), null);
     }
 
     // 모임별 개인적으로 피하고 싶은 시간 저장하기
@@ -89,6 +80,9 @@ public class MeetingEventCreateService {
     private void saveMeetingEvent(MeetingEvent meetingEvent) {
         meetingEventRepository.save(meetingEvent);
     }
+
+    private void createAndSaveMeetingEvents(MemberMeeting memberMeeting,
+        List<MeetingTimeCreateRequest> meetingTimeCreateRequests) {}
 
 
 }

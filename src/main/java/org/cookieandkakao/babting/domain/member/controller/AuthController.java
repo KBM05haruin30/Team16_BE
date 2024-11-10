@@ -70,6 +70,7 @@ public class AuthController {
         TokenIssueResponse tokenDto = authService.issueToken(memberId);
 
         response.addCookie(createRefreshTokenCookie(tokenDto));
+        System.out.println(tokenDto.accessToken());
 
         return "redirect:/login/success";  // 프론트 페이지 구현 후 수정 예정
     }

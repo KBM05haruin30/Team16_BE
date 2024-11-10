@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.cookieandkakao.babting.common.cache.CacheKeyGenerator;
 import org.cookieandkakao.babting.common.exception.customexception.CacheEvictionException;
 import org.cookieandkakao.babting.domain.calendar.exception.EventCreationException;
+import org.cookieandkakao.babting.domain.calendar.exception.EventDetailNotFoundException;
 import org.cookieandkakao.babting.domain.calendar.exception.JsonConversionException;
 import org.cookieandkakao.babting.domain.calendar.dto.request.EventCreateRequest;
 import org.cookieandkakao.babting.domain.calendar.dto.response.EventCreateResponse;
@@ -93,6 +94,9 @@ public class TalkCalendarService {
         String kakaoAccessToken = memberService.getKakaoAccessToken(memberId);
         EventDetailGetResponse eventDetailGetResponse = talkCalendarClientService.getEvent(
             kakaoAccessToken, eventId);
+        if (eventDetailGetResponse == null) {
+            throw new EventDetailNotFoundException("요청한 일정 ID에 해당하는 일정을 찾을 수 없습니다.");
+        }
 
         cacheData(cacheKey, eventDetailGetResponse);
         return eventDetailGetResponse;
