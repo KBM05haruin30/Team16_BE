@@ -47,8 +47,3 @@ tasks.named('test') {
 jar {
     enabled = false
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
