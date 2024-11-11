@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package org.cookieandkakao.babting;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
