@@ -47,3 +47,10 @@ tasks.named('test') {
 jar {
     enabled = false
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.AMAZON
+        download = true // Toolchain을 필요 시 다운로드하도록 설정
+    }
+}
