@@ -14,7 +14,7 @@ public class TestController {
     @GetMapping("/test")
     public Map<String, String> getTestMessage() {
         Map<String, String> response = new HashMap<>();
-        response.put("message", "This is a test API 성공.");
+        response.put("message", "This is a test API 성공1.");
         response.put("status", "success");
         return response;
     }
