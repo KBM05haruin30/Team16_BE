@@ -87,15 +87,57 @@
 <img src="https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white">
 <img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white">
 <img src="https://img.shields.io/badge/amazon%20rds-02303A.svg?style=for-the-badge&logo=amazon%20rds&logoColor=white">
-
 </div>
 
 
 ## 💡 프로젝트의 주요 관심사 <a id="프로젝트의-주요-관심사"></a>
 ## 🎯 팀 공통 목표 <a id="팀-공통-목표"></a>
 ## 🌱 브랜치 관리 전략 <a id="브랜치-관리-전략"></a>
+### 브랜치 구조
+- **Master 브랜치** 
+  - 배포 가능한 최종 코드를 관리하는 브랜치로, 안정화된 코드만 머지합니다.
+- **Develop 브랜치**
+  - 개발 중인 기능을 통합하는 브랜치입니다.
+- **Review 브랜치**
+  - 코드 리뷰를 위한 브랜치로, 멘토님의 코드 리뷰와 피드백을 받을 수 있습니다.
+- **week 브랜치**
+  - 주차별 작업을 통합하는 브랜치로, 팀원들이 포크한 저장소에서 작업한 기능을 PR로 제출해 이 브랜치에 머지합니다.
+- **week-conflict 브랜치**
+  - 'week' 브랜치에서 발생한 충돌을 해결하기 위한 임시 브랜치입니다.
+- **hotfix 브랜치**
+  - 긴급한 버그나 오류 수정이 필요할 때 사용하는 브랜치입니다.
+### 협업 플로우
+![Cross Functional (Swimlane) Chart (1)](https://github.com/user-attachments/assets/8afe499b-8b78-4b55-8704-85c6055e2d97)
+- 위의 협업 플로우 차트는 팀원들이 협력하는 방식과 브랜치 간 관계를 나타냅니다.
+### Git 작업 단위
+1. **브랜치 생성**
+   - 작업을 시작하기 위해 팀 저장소의 최신 코드를 로컬로 가져오고, 새로운 기능을 위한 브랜치를 생성합니다.
+2. **커밋(Commit)**
+   - [커밋 컨벤션](https://quickest-asterisk-75d.notion.site/a8d9a04167674a289f8c02d74b2fbe5d)에 따라 커밋 메시지를 작성합니다.
+3. **푸시(Push)**
+   - 로컬 작업을 완료한 후, 팀 저장소의 `week` 브랜치에 푸시합니다.
+4. **PR(Pull Request) 생성**
+   - 팀원들에게 코드 검토를 요청하기 위해 PR을 생성하고, 일관된 PR 템플릿을 사용합니다.
+     ```
+     ## 주요 변경사항
+        
+     ## 리뷰어에게...
+        
+     ## 관련 이슈
+        
+     closes #
+        
+     ## 체크리스트
+     - [ ] `reviewers` 설정
+     - [ ] `label` 설정
+     ```
+5. **리뷰 및 피드백**
+   - 팀원들이 PR을 확인하고 코드 리뷰를 진행합니다. 
+6. **병합(Merge)**
 ## 🚀 주요 기능 소개 <a id="주요-기능-소개"></a>
+
 ## 🤔 고민한 부분 <a id="고민한-부분"></a>
+
 ## 📚 자료 모음 <a id="자료-모음"></a>
 ## 📝 테스트 결과 보고서 / 시나리오 명세서 <a id="테스트-결과-보고서--시나리오-명세서"></a>
 
@@ -129,11 +171,6 @@
 ### 둘러보기
 
 - **[api문서](https://jagaldol.com/files/bungaebowling-api-docs.html)**
-
-### 깃헙 레포지토리
-
-- **[FrontEnd Repository](https://github.com/Step3-kakao-tech-campus/Team3_FE)**
-- **[BackEnd Repository](https://github.com/Step3-kakao-tech-campus/Team3_BE)**
 
 ## System Structure
 
