@@ -96,9 +96,6 @@
 ### 전체적인 시스템 구조
 ### BE 시스템 구조
 ![Section 2](https://github.com/user-attachments/assets/29a168c3-a281-455f-8d90-4706cd1ac561)
-## 각 트랙별 코딩에 대한 간단한 설명
-- 쿠키즈가 주안점을 두고 개발한 기능이 무엇인지, 서비스를 기획하게 된 의도 등을 리드미에 작성
-
 ## 📊 ERD <a id="이알디"></a>
 ![Babting (2)](https://github.com/user-attachments/assets/7a9c9854-a864-412f-8a41-7d7339e1d1ae)
 #### [목차로 이동하기](#목차)
