@@ -1,4 +1,9 @@
 # Team16_BE
+<div align="center">
+<h6>테스트 계정</h6>
+email : babting.be@gmail.com<br>
+password : qkqxld1!
+</div>
 
 <div align="center">
 <h1>[Babting] 프로젝트 소개</h1>
@@ -15,7 +20,7 @@
 > - [🌱 브랜치 관리 전략](#브랜치-관리-전략)
 > - [🚀 주요 기능 소개](#주요-기능-소개)
 > - [🤔 고민한 부분](#고민한-부분)
-> - [📝 테스트 결과 보고서 / 시나리오 명세서](#테스트-결과-보고서--시나리오-명세서)
+> - [📝 테스트 시나리오 명세서 / 결과 보고서](#테스트-결과-보고서--시나리오-명세서)
 > - [📚 자료 모음](#자료-모음)
 > - [📄 License Information](#라이센스-정보)
 > - [📜 Project License](#프로젝트-라이센스)
@@ -96,6 +101,7 @@
 ### 전체적인 시스템 구조
 ### BE 시스템 구조
 ![Section 2](https://github.com/user-attachments/assets/29a168c3-a281-455f-8d90-4706cd1ac561)
+#### [목차로 이동하기](#목차)
 ## 📊 ERD <a id="이알디"></a>
 ![Babting (2)](https://github.com/user-attachments/assets/7a9c9854-a864-412f-8a41-7d7339e1d1ae)
 #### [목차로 이동하기](#목차)
@@ -196,8 +202,9 @@
    - 그래서 각 예외에 맞게 커스텀 예외를 생성하여 Http 상태코드와 에러 메시지를 같이 사용해 명확한 예외 처리가 가능하도록 했습니다.
    - 예를 들어, 시작 시간이 종료 시간보다 늦게 입력된 경우 `InvalidTimeRangeException` 가 발생하여 `Bad_request`인 `400`과 `"시작 시간이 종료 시간보다 늦을 수 없습니다."`를 같이 사용하도록 했습니다.
 
-## 📝 테스트 결과 보고서 / 시나리오 명세서 <a id="테스트-결과-보고서--시나리오-명세서"></a>
-
+## 📝 테스트 시나리오 명세서 / 결과 보고서 <a id="테스트-결과-보고서--시나리오-명세서"></a>
+📑 [테스트 시나리오 명세서](https://quickest-asterisk-75d.notion.site/Babting-07efc94e53b0466abf07d68b33c824bc)<br>
+📈 [테스트 결과 보고서](https://quickest-asterisk-75d.notion.site/Babting-5306e5c7b98943368a2db58bbad65247)
 #### [목차로 이동하기](#목차)
 
 ## 📚 자료 모음 <a id="자료-모음"></a>
@@ -239,6 +246,3 @@
 <br>
 이 라이선스에 따라, 본 서비스는 자유롭게 사용, 수정, 배포할 수 있으며, 저작권 표시만 유지하면 됩니다.
 #### [목차로 이동하기](#목차)
-
-
-## How to Start
