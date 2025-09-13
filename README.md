@@ -1,10 +1,16 @@
-# Team16_BE
-<div align="center">
-<h6>테스트 계정</h6>
-email : babting.be@gmail.com<br>
-password : qkqxld1!
-</div>
+# Babting Backend (Team16)
+실서비스 운영을 가정한 Java/Spring Boot 백엔드 프로젝트입니다. REST API 설계·구현, 캐싱/성능 개선, 자동 배포 및 클라우드 배포까지 다뤘습니다.
 
+- **개요:** Java 21 · Spring Boot · MySQL(RDS) · Redis · JPA · Jenkins · Docker · AWS EC2/RDS
+- **Upstream(원본):** https://github.com/kakao-tech-campus-2nd-step3/Team16_BE
+- **My PRs:** https://github.com/kakao-tech-campus-2nd-step3/Team16_BE/pulls?q=assignee%3AKBM05haruin30+is%3Aclosed
+
+## 내 역할
+- 일정/메뉴 일부 REST API 설계·구현, 톡 캘린더 연동
+- RedisTemplate 기반 캐시 키 설계, JPA `saveAll` 적용 등 성능 개선
+- Jenkins + Docker CI/CD 구축, AWS EC2·RDS 배포, Swagger 문서화/테스트 코드
+
+# Team16_BE
 <div align="center">
 <h1>[Babting] 프로젝트 소개</h1>
 </div>
